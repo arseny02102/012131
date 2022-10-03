@@ -10,17 +10,19 @@ def main():
         img=frame
         # cv2.imshow('01', frame)
         height, width = frame.shape[:2]
-        print(height, width)
+        print(img.shape)
         img = cv2.resize(frame, (320, 240))
         # cv2.imshow('02', img)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         canny=cv2.Canny(gray,50,100)
         cv2.imshow('03', canny)
         # Преобразование Хафа - классический алгоритм обнаружения прямых линий.
-        lines = cv2.HoughLinesP(canny, 1, np.pi / 180, 30, minLineLength=30, maxLineGap=20)
+        lines = cv2.HoughLinesP(canny, 1, np.pi / 180, 30, minLineLength=100, maxLineGap=10)
         lines = lines[:, 0, :]
         for x1, y1, x2, y2 in lines:
-            cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 1)
+            cv2.line(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+
+
         cv2.imshow('img', img)
 
         key = cv2.waitKey(1)
