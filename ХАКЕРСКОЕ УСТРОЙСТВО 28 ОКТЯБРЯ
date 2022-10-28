@@ -1,0 +1,13 @@
+from machine import Pin, ADC, PWM
+from time import sleep
+
+pot = ADC(Pin(2))
+pot.atten(ADC.ATTN_11DB)       #Full range: 3.3v
+frequency = 5000
+led = PWM(Pin(5), frequency)
+
+
+while True:
+  pot_value = pot.read()
+  led.duty(pot_value//10)
+  sleep(0.1)
